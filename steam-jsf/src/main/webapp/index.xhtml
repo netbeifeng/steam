@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>  
+        <meta charset="UTF-8"/>
+        <!-- <meta name="viewport" content="width=device-width,initial-scale=1.8"> -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="apple-touch-fullscreen" content="yes"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <title>Login</title>
+        <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="login.css" />
+    </h:head>  
+    <h:body>  
+        <div class="projektname">STEAM</div>
+        <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <h:form class="form-register" id="rform">
+                    <h1>NEU ANMELDEN</h1>
+                    <br/><br/>
+                    <h:inputText value="#{user.username}"  pt:placeholder="Benutzername" id="username-register" requiredMessage="Benutzername" required="true"/>
+                    <h:message for="username-register" />
+                    <h:inputSecret  value="#{user.password}" pt:placeholder="Passowort" id="password-register" requiredMessage="Passwort" required="true"/>
+                    <h:message for="password-register" />
+                    <h:inputSecret  value="#{user.passwordConfirm}" pt:placeholder="Passowort" id="password-register-confirm" requiredMessage="Passwort Wiederholen" required="true"/>
+                    <h:message for="password-register-confirm" />
+                    <h:commandButton styleClass="button" value="Registrieren"  id="submit" action="#{userhandler.clickRegisterien(user)}"/>
+                    <h:outputText value="#{userhandler.error}" escape="false"></h:outputText>
+                </h:form>
+            </div>
+            <div class="form-container sign-in-container">
+                <h:form class="form-login">
+                    <h1>MOIN, MOIN</h1>
+                    <br/><br/>
+                    <h:inputText  value="#{user.username}" pt:placeholder="Benutzername" id="username" requiredMessage="Benutzername" required="true"/>
+                    <h:message for="username" />
+                    <h:inputSecret value="#{user.password}" pt:placeholder="Passowort" id="password" requiredMessage="Passwort" required="true"/>
+                    <h:message for="password" />
+    <!--                <a href="forget.html">Passwort vergessen?</a>-->
+                    <br/><br/>
+                    <h:commandButton styleClass="button" value="Einloggen" action="#{userhandler.clickEinloggen(user)}"/>
+
+                </h:form>
+            </div>
+
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>DU HAST SCHON EINEN ACCOUNT?</h1>
+                        <p>Dann nutze deinen persönlichen Login und melde dich damit an.</p>
+                        <button class="ghost" id="signIn">Einloggen</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>NEU BEI UNS?</h1>
+                        <p>Melde dich jetzt an und erstelle deine Filmliste.</p>
+                        <button class="ghost" id="signUp">Neu anmelden</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:body>  
+    <script src="login.js"></script>
+</html>

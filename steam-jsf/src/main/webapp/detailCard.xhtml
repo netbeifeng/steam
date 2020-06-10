@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>  
+        <title> Steam™ - <h:outputText value="#{param['title']}" /> </title>
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+        <link rel="stylesheet" type="text/css" href="detail.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500" rel="stylesheet"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"/>
+    </h:head>  
+    <h:body> 
+    <h:outputText value="#{userhandler.setNight(false)}"></h:outputText>
+    <header style="position: sticky; top: 0; left: 0; z-index: 301;">
+        <input type="checkbox" id="toggler"/>
+
+
+        <label for="toggler">
+          <span class="hamburger-container">
+            <span></span>
+            <span></span>
+          </span>
+          <span class="menu_text">
+              <span id="greeting_text"><h:outputText value="#{user.username}"></h:outputText>, <h:outputText value="#{userhandler.greetingText}"></h:outputText> <h:outputText value="#{userhandler.date}"><f:convertDateTime dateStyle="short" locale="us"></f:convertDateTime></h:outputText> </span>
+            <span>Steam™</span>
+          </span>
+        </label>
+
+        <div class="nav-items">
+          <ul>
+              <li><h:link outcome="#{userhandler.backToMySteam()}">MySteam</h:link></li>
+              <li><h:link outcome="#{userhandler.backToSearch()}">Search</h:link></li>
+            <li><h:link outcome="index">Logout</h:link></li>
+          </ul>
+        </div>
+    </header>
+
+        <span class="label_text">
+            &lt; Series Detail &gt;
+        </span>
+
+    <span class="tool_bar" style="top: 3.2rem; z-index: 101;">
+        <h:link outcome="#{userhandler.backToMySteam()}"><i class="fas fa-chevron-left"></i></h:link>
+        <a href="search.html"><i class="fas fa-search" id="search_button"></i></a>
+    </span>
+    <h:outputText value="#{card.makeCardFromURL(user)}"></h:outputText>
+    <div class="movie-details-container">
+        <h:outputText value="#{card.getCardDetailHtml()}" escape="false"></h:outputText>
+    </div>
+    <style type="text/css">
+        #{card.styles}
+    </style>
+</h:body>  
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Steam™ - Dashboard </title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+  <link href="light.css" rel="stylesheet">
+</head>
+
+<body>
+    <header style="position: sticky; top: 0; left: 0; z-index: 301;">
+      <input type="checkbox" id="toggler">
+
+      <label for="toggler">
+        <span class="hamburger-container">
+          <span class="dash"></span>
+          <span class="dash"></span>
+        </span>
+        <span class="menu_text">
+          <span id="greeting_text">Username, Gute Nacht! </span>
+          <span>Steam™</span>
+        </span>
+      </label>
+
+      <div class="nav-items">
+        <ul>
+          <li><a href="#">MySteam</a></li>
+          <li><a href="javascript:void(0)" onclick="window.location.href='search.html?username='+getParams('username');">Search</a></li>
+          <li><a href="login.html">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <span class="label_text">
+          &lt; Serienliste &gt;
+        </span>
+        <span class="tool_bar">
+            <a href="javascript:void(0)" onclick="window.location.reload()"><i class="fas fa-sync-alt"></i></a>
+            <a href="javascript:void(0)" onclick="window.location.href='search.html?username='+getParams('username');"><i class="fas fa-search" id="search_button"></i></a>
+            <i class="fas fa-plus" id="new_card_button"></i>
+            <i class="fas fa-user-tag" id="cate_by_me" onclick="cateUser(getParams('username'))"></i>
+            <i class="fas fa-stream" id="cate_by_button"></i>
+            <i class="fas fa-moon" id="night_mode_button"></i>
+        </span>
+        <ul class="cate-by" style="opacity: 0.0">
+          <li><a href="#" onclick="cateAll()">All</a></li>
+          <li id="user_list"><a href="#">User</a>
+            <ul>
+            </ul>
+          </li>
+          <li><a href="#">Genre</a>
+            <ul>
+              <li><a href="#" id="thriller" onclick="cateGenre(id)">Thriller</a></li>
+              <li><a href="#" id="sciencefiction" onclick="cateGenre(id)">ScienceFiction</a></li>
+              <li><a href="#" id="drama" onclick="cateGenre(id)">Drama</a></li>
+              <li><a href="#" id="action" onclick="cateGenre(id)">Action</a></li>
+              <li><a href="#" id="comedy" onclick="cateGenre(id)">Comedy</a></li>
+              <li><a href="#" id="documentary" onclick="cateGenre(id)">Documentary</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Platform</a>
+            <ul>
+              <li><a href="#" style="color:red;" id="netflix" onclick="catePlatform(id)">Netflix</a></li>
+              <li><a href="#" style="color:#232F3E;" id="amazonprime" onclick="catePlatform(id)">AmazonPrime</a></li>
+              <li><a href="#" style="color:#1E90FF;" id="skye" onclick="catePlatform(id)">Skye</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Rating</a>
+            <ul>
+              <li><a href="#" style="color:darkgreen;" id="verygood" onclick="cateRating(id)">Very Good</a></li>
+              <li><a href="#" style="color:forestgreen;" id="good" onclick="cateRating(id)">Good</a></li>
+              <li><a href="#" style="color:coral;" id="mediorce" onclick="cateRating(id)">Mediorce</a></li>
+              <li><a href="#" style="color:firebrick;" id="bad" onclick="cateRating(id)">Bad</a></li>
+            </ul>
+          </li>
+        </ul>
+    </div>
+    <div id="page_container" class="page-container">
+        <!--<div class="card-container" data-series-id="1399"><div class="cover"><img src="http://image.tmdb.org/t/p/w400/zwaj4egrhnXOBIit1tyb4Sbt3KP.jpg" class="film_pic"><span class="film_name">Game Of Throne </span></div><div class="back"><div class="back-info"><label class="text_titel">Titel: <span class="span_titel">Game Of Throne </span></label><label class="text_season">Season: <span class="span_season">1</span></label><label class="text_genre">Genre: <span class="span_genre">Drama</span></label><label class="text_platform">Platform: <span class="span_platform">Netflix</span></label><label class="text_rating">Rating: <span class="span_rating_mediocre">Mediocre <i class="fas fa-star"></i></span></label><label class="text_remark">Remark: <span class="span_remark">Comment hier</span></label><label class="text_username" style="font-size: 0.8rem;">EditBy: <span class="span_username">shirosya</span></label></div><div class="icon-top"><a class="poster_icon"><i class="far fa-images"></i></a>&nbsp;&nbsp;<a class="detail_icon"><i class="fas fa-info"></i></a>&nbsp;&nbsp;<a class="edit_icon"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;<a class="delete_icon"><i class="fas fa-times"></i></a></div><div class="icon-bottom" style="display:none;"><i id="save_icon" class="fas fa-save"></i></div></div></div>-->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

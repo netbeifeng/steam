@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+        <title>Catelog</title>
+        <link rel="stylesheet" type="text/css" href="light.css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"/>
+<!--        <link rel="stylesheet" type="text/css" href="light.css"/> -->
+    </h:head>
+    <h:body>
+        <h:link outcome="light"><i style="position: absolute; right: 8%; top:6.5%; transform: scale(3); text-shadow: 0 0.15rem 0.2rem rgba(0, 0, 0, 0.4);" class="fas fa-chevron-left"></i></h:link>
+        <div class="page-container">
+            <h:outputText value="#{cardhandler.setParam(user.username)}" escape="false"></h:outputText>
+        </div>
+        <div style="position: absolute; top: 1%; left:30%; color: azure; text-shadow: 0 0.15rem 0.2rem rgba(0, 0, 0, 0.4);">
+            <h1><h:outputText value="#{cardhandler.cate}"></h:outputText></h1>
+        </div>
+    </h:body>
+</html>

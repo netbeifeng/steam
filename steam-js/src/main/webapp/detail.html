@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Steam™ - Series Name </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <style>
+    .tool_bar {
+        position: absolute;
+        display: block;
+        height: 40px;
+        width: auto;
+        top: 2.4rem;
+        right: 2rem;
+        transform: scale(1.3);
+        color: #fff;
+        text-shadow: 0 0.15rem 0.2rem rgba(0, 0, 0, 0.4);
+    }
+
+    .tool_bar i {
+        height: 40px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+
+    .tool_bar div {
+        display: inline-block;
+    }
+
+    #toggler:checked + label .hamburger-container span:nth-child(1) {
+        transform: rotate(45deg);
+        top: 4px;
+        transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+    }
+
+    #toggler:checked + label .hamburger-container span:nth-child(2) {
+        transform: rotate(-45deg);
+        top: -4px;
+        transition: top 0.3s ease-in-out, transform 0.3s ease-in-out 0.3s;
+    }
+
+    #toggler {
+        display: none;
+    }
+
+    .hamburger-container {
+        display: block;
+        width: 20px;
+        height: 20px;
+        position: relative;
+        top: 16px;
+    }
+
+    .hamburger-container span {
+        display: block;
+        height: 1px;
+        background-color: white;
+        position: relative;
+        transition: transform 0.3s ease-in-out, top 0.3s ease-in-out 0.3s;
+        top: 0;
+    }
+
+    .hamburger-container span:nth-child(2) {
+        margin-top: 7px;
+    }
+
+    span.menu_text span:nth-child(2) {
+        margin-left: 2rem;
+      }
+    
+    header {
+        background-color: rgba(1, 1, 1, 0.68);
+        height: 44px;
+        padding: 0 18px;
+    }
+
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        position: relative;
+        background-color: rgba(1, 1, 1, 0.68);
+        height: 40px;
+        width: 100%;
+        color: #fff;
+        font-size: 0.8rem;
+        border-radius: 5px 5px 0 0;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+
+
+    html {
+        font-size: 18px;
+        width: 100%;
+        height: 100%;
+        font-size: 25px;
+        font-family: "Oswald", sans-serif;
+    }
+
+    body {
+
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        color: white;
+        background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.4) 50%,
+                rgba(0, 0, 0, 0) 100%
+        ),
+        url(bg.png) repeat center center fixed;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    .fa-star,
+    .fa-star-half {
+        color: yellow;
+    }
+
+    h1,
+    p {
+        color: white;
+    }
+
+    p {
+        margin-right: 2rem;
+    }
+
+    h2,
+    h3 {
+        color: #1e90ff;
+        font-weight: 200;
+        font-weight: bold;
+    }
+
+    .movie-details-container {
+        top: 6rem;
+        height: auto;
+        width: auto;
+        overflow: auto;
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+    }
+
+    .row {
+        overflow: auto;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+    }
+    .column {
+        float: left;
+    }
+
+    .column-md:nth-child(1) {
+        width: 20%;
+        float: left;
+        padding: 5% 25% 0 5%;
+    }
+
+    .column-md:nth-child(2) {
+        width: 67%;
+        float: left;
+        padding: 0 0 0 10%;
+        margin-left: 1.5rem;
+    }
+
+    .date {
+        background-color: rgba(255, 139, 0, 0.8);
+        padding: 0.3rem 1rem;
+        border-radius: 4px;
+        margin-right: 2rem;
+    }
+    #season {
+        font-size: 1.5rem;
+        font-weight: 200;
+    }
+    #poster {
+        /*position: absolute;*/
+        /*left: 2rem;*/
+        width: auto;
+        height: auto;
+        min-width: 300px;
+        min-height: 400px;
+        border-radius: 10px;
+    }
+
+    .episode_count {
+        font-family: "Times New Roman";
+        font-size: 40px;
+        background-color: rgba(0, 123, 255, 0.8);
+        padding: 0.3rem 0.3rem;
+        border-radius: 4px;
+    }
+    .nav-items {
+        background: linear-gradient(to top, rgba(1, 1, 1, 0.43), rgba(1, 1, 1, 0.68));
+        width: 100%;
+        height: 150px;
+        position: absolute;
+        left: 0;
+        top: 44px;
+        transform: scaleY(0);
+        transition: transform 0.3s ease-in-out 0.3s, opacity 0.3s ease-in-out 0.3s;
+        transform-origin: 0% 0;
+        opacity: 0;
+        border-radius: 0 0 5px 5px;
+        z-index: 100;
+    }
+
+    #toggler:checked ~ .nav-items {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    .span_rating_veryGood {
+        padding: 6px;
+        background-color: darkgreen;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.18);
+    }
+    .span_rating_good {
+        padding: 6px;
+        background-color: forestgreen;
+        border-radius: 5px;
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.18);
+    }
+    .span_rating_mediocre {
+        padding: 6px;
+        background-color: coral;
+        border-radius: 5px;
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.18);
+    }
+    .span_rating_bad {
+        padding: 6px;
+        background-color: firebrick;
+        border-radius: 5px;
+        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.18);
+    }
+
+    .rating_titel span i {
+        color: yellow;
+    }
+
+    header ul {
+        /*   margin-top: 1em; */
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    header ul li {
+        font-size: 30px;
+        color: #fff;
+        list-style: none;
+        text-decoration: none;
+
+        float: left;
+    }
+
+    header ul > li a {
+        display: block;
+        padding: 25px 8px;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    header ul li a:hover {
+        background-color: rgba(1, 1, 1, 0.33);
+        border-radius: 10px;
+    }
+
+    span.label_text {
+        font-size: 40px;
+        display: block;
+        color: #fff;
+        position: absolute;
+        left: 1.5rem;
+        top: 2.3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    span.menu_text {
+        display: block;
+        color: #fff;
+        position: relative;
+        text-align: right;
+        bottom: 0.7rem;
+    }
+    a {
+        cursor: pointer;
+        text-decoration: none;
+        color: #fff;
+    }
+</style>
+</head>
+
+<body>
+<header style="position: sticky; top: 0; left: 0; z-index: 301;">
+    <input type="checkbox" id="toggler">
+
+      <label for="toggler">
+        <span class="hamburger-container">
+          <span class="dash"></span>
+          <span class="dash"></span>
+        </span>
+        <span class="menu_text">
+          <span id="greeting_text">Username, Gute Nacht! </span>
+          <span>Steam™</span>
+        </span>
+      </label>
+
+    <div class="nav-items" style="z-index: 201;">
+        <ul>
+            <li><a href="javascript:void(0);" onclick="window.location.href='index.html?username='+getParams('username')">MySteam</a></li>
+            <li><a href="javascript:void(0);" onclick="window.location.href='search.html?username='+getParams('username')">Search</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </div>
+</header>
+<div>
+    <span class="label_text" style="z-index: 101;">
+        &lt; Seriesdetails &gt;
+    </span>
+</div>
+<span class="tool_bar" style="top: 3.2rem; z-index: 101;">
+    <a href="javascript:void(0);" onclick="window.location.href='index.html?username='+getParams('username')"><i class="fas fa-chevron-left"></i></a>
+    <a href="search.html"><i class="fas fa-search" id="search_button"></i></a>
+  </span>
+
+<div class="movie-details-container">
+    <div class="column-md">
+        <div><img src="https://dummyimage.com/600x800/F8F8F8/727878.jpg&text=No+Poster+Available" id="poster" alt="No Image"/></div>
+    </div>
+    <div class="column-md">
+        <h1 id="title">Title of Series<span id="season"> (Season /)</span></h1>
+
+        <div class="row">
+            <div class="column" style="height:auto; width: 10rem;">
+                Rating: <span id="span_rating" class="span_rating_good"> - None - </span>
+            </div>
+            <div class="column" style="height:auto; width: 16rem;">
+                Released-Date: <span class="date"> - No Data - </span>
+            </div>
+            <div class="column" style="height:auto; width: 10rem;">
+                Episode Count: <span class="episode_count"> / </span>
+            </div>
+        </div>
+        <h3>Overview</h3>
+        <div id="overview">
+            <p id="beschreibung">Sorry, no overview is available.</p>
+        </div>
+        <div class="row">
+            <div class="column" style="height: auto; width: 20rem;">
+                <h2><strong>Genre</strong></h2>
+                <span class="span_genre">Drama</span>
+            </div>
+            <div class="column" style="height: auto; width: 20rem;">
+                <h2><strong>Platform</strong></h2>
+                <span class="span_platform"><svg xmlns="http://www.w3.org/2000/svg" width="200" height="58.742" viewBox="0 0 1024 276.742">
+              <path d="M140.803 258.904c-15.404 2.705-31.079 3.516-47.294 5.676L44.051 119.724v151.073C28.647 272.418 14.594 274.58 0 276.742V0h41.08l56.212 157.021V0h43.511v258.904zm85.131-157.558c16.757 0 42.431-.811 57.835-.811v43.24c-19.189 0-41.619 0-57.835.811v64.322c25.405-1.621 50.809-3.785 76.482-4.596v41.617l-119.724 9.461V0h119.724v43.241h-76.482v58.105zm237.284-58.104h-44.862V242.15c-14.594 0-29.188 0-43.239.539V43.242h-44.862V0H463.22l-.002 43.242zm70.266 55.132h59.187v43.24h-59.187v98.104h-42.433V0h120.808v43.241h-78.375v55.133zm148.641 103.507c24.594.539 49.456 2.434 73.51 3.783v42.701c-38.646-2.434-77.293-4.863-116.75-5.676V0h43.24v201.881zm109.994 49.457c13.783.812 28.377 1.623 42.43 3.242V0h-42.43v251.338zM1024 0l-54.863 131.615L1024 276.742c-16.217-2.162-32.432-5.135-48.648-7.838l-31.078-79.994-31.617 73.51c-15.678-2.705-30.812-3.516-46.484-5.678l55.672-126.75L871.576 0h46.482l28.377 72.699L976.705 0H1024z" fill="#d81f26" /></svg></span>
+            </div>
+        </div>
+        <div class="row">
+            <h2 class="remark_title">Remark</h2>
+            <span class="remark">Here is Commentarea.</span>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+<script>
+    var $body = $(document).find("body");
+    var now = new Date();
+
+    $(window).resize(function () {
+        // alert($(window).width())
+        // alert($(document).find(".backdrop").width())
+//    $("html").height($(document).height());
+//    $("html").width($(document).width());
+//    $(".backdrop #results").height($(window).height() - 84);
+//    $(".backdrop #results").width($(window).width());
+        var $footer = $body.find("footer");
+        var $movie_details_container = $body.find(".movie-details-container");
+        if ($(window).height() > $movie_details_container.height()) {
+            $footer.attr("style", "top:" + ($(window).height() -82) + "px;");
+        } else {
+            $footer.attr("style", "top:" + ($movie_details_container.height() + 82) + "px;");
+        }
+
+        // $("footer").css("top",$(document).height()+"px");
+    });
+    //
+    var _PageHeight = document.documentElement.clientHeight,
+        _PageWidth = document.documentElement.clientWidth;
+    //计算loading框距离顶部和左部的距离（loading框的宽度为215px，高度为61px）
+    var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,
+        _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;
+    //在页面未加载完毕之前显示的loading Html自定义内容
+    var _LoadingHtml =
+        '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' +
+        _PageHeight +
+        'px;top:0;background:#f3f8ff;opacity:1;filter:alpha(opacity=80);z-index:10000;"><div style="position: absolute; cursor1: wait; left: ' +
+        _LoadingLeft +
+        "px; top:" +
+        _LoadingTop +
+        "px; width: auto; height: 57px; line-height: 57px; padding-left: 50px; padding-right: 5px; background: #fff url(loading.gif) no-repeat scroll 5px 10px; border: 2px solid #95B8E7; color: #696969; font-family:'Microsoft YaHei';\">Loading......</div></div>";
+    //呈现loading效果
+    document.write(_LoadingHtml);
+    //监听加载状态改变
+    document.onreadystatechange = completeLoading;
+
+    //加载状态为complete时移除loading效果
+    function completeLoading() {
+        if (document.readyState == "complete") {
+            var loadingMask = document.getElementById("loadingDiv");
+            loadingMask.parentNode.removeChild(loadingMask);
+        }
+    }
+
+    function getParams(key) {
+        var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    }
+
+    $(document).ready(function () {
+        // alert();
+//    $("body").height($(document).height());
+//    $("body").width($(document).width());
+
+        var $greeting_text = $(document).find("#greeting_text");
+        if (now.getHours() >= 18 && now.getHours() <= 21) {
+            $greeting_text.text(getParams("username") + ", Guten Abend!");
+        } else if (now.getHours() > 21 || now.getHours() <= 6) {
+            $greeting_text.text(getParams("username")  + ", Gute Nacht!!");
+        } else if (now.getHours() > 6 || now.getHours() < 18) {
+            $greeting_text.text(getParams("username")  + ", Guten Tag!");
+        }
+
+
+        $(document).find("title").text(" Steam™ - "+getParams("titel")+" ");
+        $(document)
+            .find("#title")
+            .html(
+                getParams("titel") +
+                '<span id="season"> (' +
+                getParams("season") +
+                ")</span>"
+            );
+        $(document).find(".span_genre").text(getParams("genre"));
+
+        var platform = getParams("platform");
+        var svg = $(document).find(".span_platform");
+        if (platform.search("Netflix") != -1) {
+            svg.html(
+                '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="58.742" viewBox="0 0 1024 276.742"><path d="M140.803 258.904c-15.404 2.705-31.079 3.516-47.294 5.676L44.051 119.724v151.073C28.647 272.418 14.594 274.58 0 276.742V0h41.08l56.212 157.021V0h43.511v258.904zm85.131-157.558c16.757 0 42.431-.811 57.835-.811v43.24c-19.189 0-41.619 0-57.835.811v64.322c25.405-1.621 50.809-3.785 76.482-4.596v41.617l-119.724 9.461V0h119.724v43.241h-76.482v58.105zm237.284-58.104h-44.862V242.15c-14.594 0-29.188 0-43.239.539V43.242h-44.862V0H463.22l-.002 43.242zm70.266 55.132h59.187v43.24h-59.187v98.104h-42.433V0h120.808v43.241h-78.375v55.133zm148.641 103.507c24.594.539 49.456 2.434 73.51 3.783v42.701c-38.646-2.434-77.293-4.863-116.75-5.676V0h43.24v201.881zm109.994 49.457c13.783.812 28.377 1.623 42.43 3.242V0h-42.43v251.338zM1024 0l-54.863 131.615L1024 276.742c-16.217-2.162-32.432-5.135-48.648-7.838l-31.078-79.994-31.617 73.51c-15.678-2.705-30.812-3.516-46.484-5.678l55.672-126.75L871.576 0h46.482l28.377 72.699L976.705 0H1024z" fill="#d81f26"/></svg>'
+            );
+        } else if (platform.search("AmazonPrime") != -1) {
+            svg.html(
+                '<svg xmlns="http://www.w3.org/2000/svg" width="160.3" height="50.3" viewBox="0 0 800.3 246.3"><path d="M396.5 246.3v-.4c.4-.5 1.1-.8 1.7-.7 2.9-.1 5.7-.1 8.6 0 .6 0 1.3.2 1.7.7v.4h-12z" fill="#d1effa"/><path d="M408.5 245.9c-4-.1-8-.1-12 0-5.5-.3-11-.5-16.5-.9-14.6-1.1-29.1-3.3-43.3-6.6-49.1-11.4-92.2-34.3-129.8-67.6-3.5-3.1-6.8-6.3-10.2-9.5-.8-.7-1.5-1.7-1.9-2.7-.6-1.4-.3-2.9.7-4s2.6-1.5 4-.9c.9.4 1.8.8 2.6 1.3 35.9 22.2 75.1 38.4 116.2 48 13.8 3.2 27.7 5.7 41.7 7.5 20.1 2.5 40.4 3.4 60.6 2.7 10.9-.3 21.7-1.3 32.5-2.7 25.2-3.2 50.1-8.9 74.2-16.9 12.7-4.2 25.1-9 37.2-14.6 1.8-1 4-1.3 6-.8 3.3.8 5.3 4.2 4.5 7.5-.1.4-.3.9-.5 1.3-.8 1.5-1.9 2.8-3.3 3.8-11.5 9-23.9 16.9-37 23.5-24.7 12.5-51.1 21.4-78.3 26.5-15.7 2.8-31.5 4.5-47.4 5.1zM260.4 43.2c2.5-1.5 5.1-3.1 7.8-4.5 7-3.6 14.8-5.4 22.7-5 5.7.3 10.9 1.9 14.9 6.1 3.8 3.9 5.2 8.7 5.6 13.9.1 1.1.1 2.2.1 3.4v51.8c0 4.5-.6 5.1-5.1 5.1h-12.2c-.8 0-1.6 0-2.4-.1-1.2-.1-2.2-1.1-2.4-2.3-.2-1.1-.2-2.2-.2-3.3V62c.1-1.9-.1-3.7-.6-5.5-.8-3.1-3.6-5.3-6.8-5.5-5.9-.4-11.8.8-17.2 3.3-.8.2-1.3 1-1.2 1.8v52.6c0 1 0 1.9-.2 2.9 0 1.4-1.1 2.4-2.5 2.4-1.5.1-3 .1-4.6.1h-10.6c-3.7 0-4.5-.9-4.5-4.6V62.2c0-1.7-.1-3.5-.5-5.2-.7-3.4-3.6-5.8-7-6-6-.4-12.1.8-17.5 3.4-.8.2-1.3 1.1-1.1 1.9v53.3c0 3.7-.8 4.5-4.5 4.5H197c-3.5 0-4.4-1-4.4-4.4V40.3c0-.8.1-1.6.3-2.4.4-1.2 1.6-1.9 2.8-1.9h12.5c1.8 0 2.9 1.1 3.5 2.8.5 1.4.8 2.7 1.3 4.2 1 0 1.6-.7 2.3-1.1 5.5-3.4 11.3-6.3 17.8-7.5 5-1 10-1 15 0 4.7 1 8.9 3.8 11.6 7.8.2.3.4.5.6.7-.1.1 0 .1.1.3z" fill="#00a8e1"/><path d="M467.7 93c.6-2 1.2-3.9 1.8-5.9 4.6-15.5 9.2-30.9 13.8-46.4l.6-1.8c.5-1.8 2.2-2.9 4-2.9h15.2c3.8 0 4.6 1.1 3.3 4.7l-6 15.9c-6.7 17.4-13.4 34.9-20.1 52.3-.2.6-.5 1.2-.7 1.8-.7 2.1-2.8 3.5-5 3.3-4.4-.1-8.8-.1-13.2 0-3.1.1-4.9-1.3-6-4.1-2.5-6.6-5.1-13.3-7.6-19.9-6-15.7-12.1-31.4-18.1-47.2-.6-1.2-1-2.6-1.3-3.9-.3-2 .4-3 2.4-3 5.7-.1 11.4 0 17 0 2.4 0 3.5 1.6 4.1 3.7 1.1 3.8 2.2 7.7 3.4 11.5 4.1 13.9 8.1 27.9 12.2 41.8-.1.1 0 .1.2.1z" fill="#232f3e"/><path d="M112.6 47c.7-.2 1.3-.6 1.7-1.2 1.8-1.8 3.7-3.5 5.7-5.1 5.2-4 11.7-6 18.2-5.5 2.6.1 3.5.9 3.7 3.4.2 3.4.1 6.9.1 10.3.1 1.4 0 2.7-.2 4.1-.4 1.8-1.1 2.5-2.9 2.7-1.4.1-2.7 0-4.1-.1-6.7-.6-13.2.7-19.5 2.8-1.4.5-1.4 1.5-1.4 2.6v48c0 .9 0 1.7-.1 2.6-.1 1.3-1.1 2.3-2.4 2.3-.7.1-1.5.1-2.2.1h-13c-.7 0-1.5 0-2.2-.1-1.3-.1-2.3-1.2-2.4-2.5-.1-.8-.1-1.6-.1-2.4V41c0-4.6.5-5.1 5.1-5.1h9.6c2.6 0 3.8.9 4.5 3.4s1.3 5 1.9 7.7zM580.4 148.4c6.6.2 13.1.6 19.5 2.3 1.8.5 3.5 1.1 5.2 1.9 2.3.9 3.8 3.1 4.1 5.5.4 2.8.5 5.7.3 8.6-1.3 17.1-6.6 33.6-15.4 48.3-3.2 5.3-7.1 10.1-11.6 14.3-.9.9-2 1.6-3.2 2-1.9.5-3.1-.5-3.2-2.4.1-1 .3-2 .7-3 3.5-9.4 6.9-18.7 9.6-28.4 1.6-5.3 2.7-10.7 3.4-16.2.2-2 .3-4 .1-6-.1-3.4-2.3-6.3-5.6-7.3-3.1-1-6.3-1.6-9.6-1.8-9.2-.4-18.4 0-27.5 1.2l-12.1 1.5c-1.3.1-2.5 0-3.2-1.2s-.4-2.4.3-3.6c.8-1.1 1.8-2.1 3-2.8 7.4-5.3 15.7-8.5 24.5-10.6 6.8-1.4 13.7-2.1 20.7-2.3z" fill="#00a8e1"/><path d="M538.5 75v36c-.2 2-1.1 2.9-3.1 3-5.4.1-10.7.1-16.1 0-2 0-2.9-1-3.1-2.9-.1-.6-.1-1.3-.1-1.9V40c.1-3.1.9-4 4-4h14.4c3.1 0 4 .9 4 4v35z" fill="#232f3e"/><path d="M151.6 74.8V39.3c.1-2.4 1-3.3 3.4-3.4 5.2-.1 10.4-.1 15.6 0 2.3 0 3 .7 3.2 3 .1.9.1 1.7.1 2.6v66.6c0 1.1-.1 2.2-.2 3.3-.1 1.3-1.1 2.2-2.4 2.3-.6.1-1.1.1-1.7.1h-13.9c-.5 0-.9 0-1.4-.1-1.4-.1-2.6-1.2-2.7-2.6-.1-.8-.1-1.6-.1-2.4.1-11.1.1-22.5.1-33.9zM163.2.1c1.6-.1 3.2.2 4.7.7 5.4 1.8 8.2 6.5 7.7 12.6-.4 5.2-4.3 9.4-9.5 10.2-2.2.4-4.5.4-6.7 0-5.7-1.1-9.9-5.3-9.5-12.5.6-7.1 5.3-11 13.3-11z" fill="#00a8e1"/><path d="M527.4.1c2-.2 4 .2 5.9 1 3.9 1.5 6.6 5.1 6.8 9.3.8 9.1-5.3 13.7-13.4 13.5-1.1 0-2.2-.2-3.3-.4-6.2-1.5-9.4-6.3-8.8-13.2.5-5.5 4.8-9.6 10.7-10.1.7-.1 1.4-.2 2.1-.1z" fill="#232f3e"/><path d="M76.7 66.6c-.4-5.2-1.8-10.3-3.9-15-4.1-8.6-10.4-14.9-20-17.1-11-2.4-20.9 0-29.9 6.7-.6.6-1.3 1.1-2.1 1.5-.2-.1-.4-.2-.4-.3-.3-1-.5-2-.8-3-.8-2.5-1.8-3.4-4.5-3.4-3 0-6.1.1-9.1 0-2.3-.1-4.4.2-6 2 0 35 0 70.1.1 105 1.3 2.1 3.3 2.5 5.6 2.4 3.6-.1 7.2 0 10.8 0 6.3 0 6.3 0 6.3-6.2v-28.5c0-.7-.3-1.5.4-2.1 5 3.9 11.1 6.3 17.4 6.9 8.8.9 16.8-1.3 23.5-7.3 4.9-4.5 8.5-10.3 10.4-16.7 2.7-8.2 2.9-16.5 2.2-24.9zM52.8 87.3c-.7 3.1-2.3 5.9-4.6 8-2.6 2.2-5.8 3.5-9.2 3.5-5.1.3-10.1-.8-14.6-3.2-1.1-.5-1.8-1.6-1.7-2.8V74.7c0-6 .1-12 0-18-.1-1.4.7-2.6 2-3.1 5.5-2.6 11.2-3.8 17.2-2.6 4.2.6 7.8 3.3 9.5 7.2 1.5 3.2 2.4 6.7 2.6 10.2.6 6.4.6 12.8-1.2 18.9z" fill="#00a8e1"/><path d="M800.1 82.2s0-.1 0 0c0-.1 0-.1 0 0zM800.2 68.8v.4c-.4-.4-.6-1-.4-1.5v-.8s0-.1.1-.1h-.1v-1h.2c0-.1-.1-.1-.1-.2-.2-1.9-.6-3.8-1.1-5.6-3.7-13.2-12-21.9-25.5-25.3-6.3-1.5-12.7-1.7-19.1-.7-13.5 2-23.2 9.2-27.9 22-4.6 12.2-4.5 25.6.1 37.8 4 11.1 12 18.1 23.5 21 6.1 1.5 12.5 1.9 18.8 1 21-2.5 29.7-18.4 31.1-32.2h-.1v-1.4c-.1-.6-.2-1.1.4-1.5v.2c0-.1.1-.3.2-.4V69c0-.1-.1-.1-.1-.2zm-24 19c-.6 2.1-1.5 4-2.8 5.8-2.2 3.1-5.7 5.1-9.5 5.4-1.9.2-3.8.2-5.7-.2-4.2-.8-7.7-3.6-9.4-7.5-1.5-3.1-2.4-6.5-2.7-9.9-.5-5.9-.6-11.8.8-17.6.5-2.3 1.5-4.6 2.7-6.6 2.2-3.6 6-5.9 10.2-6.2 1.9-.2 3.8-.2 5.7.2 4 .8 7.3 3.4 9.1 7.1 1.7 3.5 2.7 7.4 2.9 11.3.1 1.8.2 3.6.1 5.4.3 4.4-.2 8.7-1.4 12.8zM624.9.8H611c-3.8 0-4.5.7-4.5 4.5v32.4c0 .7.3 1.4-.2 2.1-.9-.1-1.4-.7-2.1-1.1-10.4-6.1-21.3-7.2-32.3-2.1-7.7 3.6-12.5 10.1-15.6 17.8-3 7.4-3.7 15.2-3.5 23.1 0 7.4 1.7 14.7 5 21.3 3.8 7.3 9.3 12.9 17.3 15.3 10.9 3.4 21.1 1.7 30.4-5.2.7-.4 1.1-1.1 2-1.3.5 1.1.9 2.3 1.1 3.5.4 1.6 1.8 2.7 3.5 2.7h2.4c3.6 0 7.1.1 10.6 0 2.8 0 3.6-.9 3.7-3.8V4.6c-.1-3.1-.9-3.8-3.9-3.8zm-18.3 73.6v18.2c.2 1.2-.5 2.3-1.6 2.8-4.8 2.7-10.3 3.8-15.7 3-4.6-.5-8.6-3.3-10.7-7.4-1.6-3.2-2.5-6.6-2.8-10.1-.8-6.3-.3-12.7 1.2-18.8.5-1.7 1.1-3.3 2-4.9 2.1-3.9 6.1-6.4 10.5-6.7 5.3-.5 10.6.5 15.4 2.7 1.2.4 1.9 1.6 1.8 2.9-.2 6.2-.1 12.2-.1 18.3z" fill="#232f3e"/><path d="M348 81.3c7.5 1.4 15.2 1.5 22.7.3 4.4-.6 8.6-1.9 12.5-4 4.5-2.6 7.8-6.2 9.2-11.2 3.5-12.6-1.9-25.3-15-30-6.4-2.1-13.2-2.8-19.9-1.9-15.8 1.8-26.1 10.5-30.8 25.6-3.3 10.3-2.9 20.8-.2 31.2 3.5 13.3 12.3 21.2 25.6 24 7.6 1.7 15.3 1.4 22.9.2 4-.7 8-1.7 11.8-3.2 2.3-.9 3.5-2.3 3.4-4.9-.1-2.4 0-4.9 0-7.4 0-3-1.2-3.9-4.1-3.2s-5.7 1.3-8.6 1.9c-6.2 1.3-12.6 1.3-18.8.2-8.5-1.7-14-9-13.5-18 .9.1 1.9.2 2.8.4zM345.5 66c.3-2.4 1-4.7 1.9-6.9 3-7.3 9.3-9.8 15.7-9.4 1.8.1 3.6.5 5.3 1.2 2.6 1.1 4.3 3.5 4.6 6.3.3 1.7.2 3.5-.3 5.2-1.2 3.6-4.1 5.1-7.6 5.8-2.1.5-4.3.7-6.5.5-3.9 0-7.9-.3-11.8-.9-1.5-.2-1.5-.2-1.3-1.8z" fill="#00a8e1"/><path d="M685.3 82.3c5.8-.4 11.6-1.5 16.8-4.3 5.3-2.6 9-7.5 10.1-13.3.7-3.6.7-7.4-.1-11-2.1-9-7.8-14.6-16.4-17.5-4.8-1.5-9.9-2.1-14.9-1.9-16.8.4-29.6 8.9-34.8 25.7-3.5 11.1-3 22.4.4 33.5 3.5 11.4 11.5 18.3 22.9 21.4 4.9 1.2 10 1.7 15 1.5 7.3-.1 14.6-1.5 21.5-4.1 2.9-1.1 3.6-2.1 3.6-5.2v-7.2c-.1-2.9-1.3-3.9-4.2-3.2-2.2.6-4.3 1.1-6.5 1.6-6.7 1.6-13.7 1.9-20.5.7-6.8-1.3-11.4-5.2-13.2-12-.5-2-.9-4-1.1-6.1.5 0 1 0 1.4.2 6.6 1.2 13.3 1.7 20 1.2zm-20.9-16c.7-3.9 1.6-7.7 4-10.9 3.7-4.9 8.8-6.3 14.6-5.7.5 0 .9.2 1.4.2 7 1.1 8.7 6.7 7.4 12.1-1 4-4.3 5.5-8 6.2-2 .4-4.1.6-6.2.5-4.1-.1-8.1-.4-12.1-1-.9-.1-1.3-.5-1.1-1.4z" fill="#232f3e"/></svg>'
+            );
+        } else {
+            svg.html(
+                '<svg xmlns="http://www.w3.org/2000/svg"  width="102.5" height="62.8" viewBox="-19.11 -19.11 1101.22 675.22"><path d="M394.906 0c-20.874 0-35.75 10.39-35.75 35.938v450.156c0 10.019 6.636 14.281 15.031 14.281h52.407c20.955 0 35.781-10.437 35.781-36V14.281C462.375 4.213 455.69 0 447.344 0h-52.438zM121.75 153.469C41.911 153.469 0 199.723 0 258.688c0 52.406 32.262 84.323 96.688 98.687l102.843 23c20.907 4.706 27.406 10.592 27.406 21.25 0 8.182-6.501 14.719-25.375 14.719H42.095C16.53 416.344 6.25 431.159 6.25 452v33.313c0 8.346 4.137 15.062 14.156 15.062h174.938c94.481 0 132.625-46.328 132.625-101.063 0-56.619-32.72-88.512-96.719-102.843l-102.875-23.063C107.468 268.734 101 262.847 101 252.156c0-8.149 6.485-14.656 25.375-14.656h153.031c25.498 0 35.813-14.86 35.813-35.75v-33.219c0-8.362-4.154-15.062-14.157-15.062H121.75zm514 0c-15.758 0-24.15 4.213-33.563 14.281l-133.5 143.344 119.75 174.5c6.92 10.068 12.695 14.781 23.157 14.781h71.343c10.675 0 16.875-4.264 16.875-13.25 0-5.51-2.676-9.09-6.218-14.156L588.437 317.313l79.844-86 157.625 233.062-69.687 147.313c-1.919 4.328-4.157 8.506-4.157 12.687 0 8.51 6.24 12.625 14.75 12.625h63.22c12.888 0 18.446-4.45 23.218-14.813l205.563-443.312c2.033-4.362 4.187-8.488 4.187-12.719 0-8.494-6.176-12.687-14.719-12.687h-63.719c-12.757 0-18.547 4.496-23.187 14.875l-89.906 199.594-125.407-197.532c-7.74-12.248-15.905-16.937-34.5-16.937H635.75z" fill="#1e90ff"/></svg>'
+            );
+        }
+        var ratingPara = getParams("rating");
+        var rating = $(document).find("#span_rating");
+        if (ratingPara.search("ery") != -1) {
+            rating.attr("class", "span_rating_veryGood");
+            rating.html(
+                "Very Good <i class='fas fa-star'></i><i class=\"fas fa-star\"></i>"
+            );
+        } else if (ratingPara.search("edi") != -1) {
+            rating.attr("class", "span_rating_mediocre");
+            rating.html('Mediocre <i class="fas fa-star-half"></i>');
+        } else if (ratingPara.search("ad") != -1) {
+            rating.attr("class", "span_rating_bad");
+            rating.html('Bad <i class="fas fa-star"></i>');
+        } else {
+            rating.attr("class", "span_rating_good");
+            rating.html(
+                'Good <i class="fas fa-star"></i><i class="fas fa-star-half"></i>'
+            );
+        }
+        $(document).find(".remark").text(getParams("remark"));
+        if (getParams("id") != -1) {
+            getInfoOfSeries(getParams("id"), getParams("season"));
+        } else {
+            if ($body.find("footer").length == 0) {
+                var $footer;
+                var $movie_details_container = $body.find(".movie-details-container");
+                if ($(window).height() > $movie_details_container.height()) {
+                    $footer = $(
+                        "<footer style='top:" +
+                        ($(window).height() -82) +
+                        "px;'>Steam™ | SS20 Gruppe IX | Web-Technologie Pflichtaufgabe-1 </footer>"
+                    );
+                } else {
+                    $footer = $(
+                        "<footer style='top:" +
+                        ($movie_details_container.height() + 82) +
+                        "px;'>Steam™ | SS20 Gruppe IX | Web-Technologie Pflichtaufgabe-1 </footer>"
+                    );
+                }
+                $body.append($footer);
+            }
+        }
+
+    });
+
+    function getInfoOfSeries(id, season) {
+        var backdrop_path;
+        var poster_path;
+        var seasons;
+        var air_date;
+        var name;
+        var overview;
+        var episode_count;
+
+        $.ajax({
+            url: "https://api.themoviedb.org/3/tv/" + id,
+            data: { api_key: "4e530284712767cef8547ff7f02bc6ad", query: name },
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                backdrop_path = "http://image.tmdb.org/t/p/w500" + data.backdrop_path;
+                seasons = data.seasons;
+                if(data.number_of_seasons == 1) {
+                    poster_path =
+                        "http://image.tmdb.org/t/p/w400" + data.poster_path;
+                    air_date = data.first_air_date;
+                    name = data.name + ": Season 1";
+                    episode_count = data.number_of_episodes;
+                    overview = data.overview;
+                } else {
+                    if (seasons[0].name.indexOf("1") != -1) {
+                        season--;
+                    }
+                    poster_path =
+                        "http://image.tmdb.org/t/p/w400" + seasons[season].poster_path;
+                    air_date = seasons[season].air_date;
+                    name = seasons[season].name;
+                    episode_count = seasons[season].episode_count;
+                    overview = seasons[season].overview;
+                }
+
+                $(document)
+                    .find("body")
+                    .css(
+                        "background",
+                        "linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0) 100%), url('" +
+                        backdrop_path +
+                        "') no-repeat center center fixed"
+                    );
+                $(document).find("body").css("background-size", "cover");
+                $(document).find("body").css("background-attachment", "fixed");
+                console.log(backdrop_path);
+                $(document).find("#poster").attr("src", poster_path);
+                $(document).find(".date").text(air_date);
+                $(document)
+                    .find("#season")
+                    .text(" (" + name + ")");
+                $(document).find(".episode_count").text(episode_count);
+                console.log(overview);
+
+                if (overview.length > 1000) {
+                    $(document)
+                        .find("#beschreibung")
+                        .text(overview.substring(0, find(overview, ".", 4) + 1));
+                } else {
+                    $(document).find("#beschreibung").text(overview);
+                    if (overview.length == 0) {
+                        $(document)
+                            .find("#beschreibung")
+                            .text(
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque blandit elit est, sit amet porta metus interdum non. Fusce ullamcorper augue a tristique aliquet. Aenean feugiat diam ut mauris bibendum faucibus. Suspendisse suscipit luctus arcu eu porta. Nam vitae dictum quam. Nullam pharetra dapibus feugiat. Quisque hendrerit auctor augue, vitae suscipit diam sodales vel. Nulla et nibh facilisis, accumsan libero id, rhoncus justo. Integer ut elit consequat, maximus turpis ac, rutrum ante. Maecenas ac lorem ultricies, suscipit ex ac, finibus enim. Nunc commodo odio nec vulputate faucibus. Donec convallis ultrices lorem, sit amet lacinia ante rutrum non. Morbi sagittis urna in dapibus pharetra. Sed vehicula felis neque, in congue augue venenatis eu."
+                            );
+                    }
+                }
+
+
+                if ($body.find("footer").length == 0) {
+                    var $footer;
+                    var $movie_details_container = $body.find(".movie-details-container");
+                    if ($(window).height() > $movie_details_container.height()) {
+                        $footer = $(
+                            "<footer style='top:" +
+                            ($(window).height() -82) +
+                            "px;'>Steam™ | SS20 Gruppe IX | Web-Technologie Pflichtaufgabe-1 </footer>"
+                        );
+                    } else {
+                        $footer = $(
+                            "<footer style='top:" +
+                            ($movie_details_container.height() + 82) +
+                            "px;'>Steam™ | SS20 Gruppe IX | Web-Technologie Pflichtaufgabe-1 </footer>"
+                        );
+                    }
+                    $body.append($footer);
+                }
+                completeLoading();
+            }
+        });
+    }
+
+    function find(str, cha, num) {
+        var x = str.indexOf(cha);
+        for (var i = 0; i < num; i++) {
+            x = str.indexOf(cha, x + 1);
+        }
+        return x;
+    }
+</script>
+</body>
+
+</html>

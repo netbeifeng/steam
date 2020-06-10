@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1.8"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Login</title>
+    <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="login.css" />
+</head>
+
+<body>
+    <div class="projektname">STEAM</div>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form class="form-register" id="rform" onsubmit="return register()" method="POST">
+                <h1>NEU ANMELDEN</h1>
+                <br/><br/>
+                <input type="text" name="username" id="username-register" placeholder="Benutzername" required="required">
+                <input type="password" name="password" id="password-register" placeholder="Passwort" required="required">
+                <input type="password" name="password" id="password-register-confirm" placeholder="Passwort Wiederholen" required="required" onblur="pw()">
+                <p id="tips"></p>
+                <button id="submit">Registrieren</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form class="form-login" onsubmit="return login()" method="POST">
+                <h1>MOIN, MOIN</h1>
+                <br/><br/>
+                <input type="text" name="username" id="username" placeholder="Benutzername" required="required">
+                <input type="password" name="password" id="password" placeholder="Passwort" required="required">
+<!--                <a href="forget.html">Passwort vergessen?</a>-->
+                <br/><br/>
+                <button>Einloggen</button>
+
+            </form>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>DU HAST SCHON EINEN ACCOUNT?</h1>
+                    <p>Dann nutze deinen persönlichen Login und melde dich damit an.</p>
+                    <button class="ghost" id="signIn">Einloggen</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>NEU BEI UNS?</h1>
+                    <p>Melde dich jetzt an und erstelle deine Filmliste.</p>
+                    <button class="ghost" id="signUp">Neu anmelden</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src="login.js"></script>
+
+</body>
+
+</html>

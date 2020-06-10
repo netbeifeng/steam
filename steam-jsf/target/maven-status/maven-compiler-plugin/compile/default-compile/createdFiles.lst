@@ -1,0 +1,14 @@
+de\hsh\steam\jsf\beans\CardHandler.class
+de\hsh\steam\jsf\backend\application\Rating.class
+de\hsh\steam\jsf\backend\application\Steamservices.class
+de\hsh\steam\jsf\backend\application\User.class
+de\hsh\steam\jsf\backend\persistence\SerializedSeriesRepository.class
+de\hsh\steam\jsf\backend\application\Series.class
+de\hsh\steam\jsf\beans\CardBean.class
+de\hsh\steam\jsf\beans\UserBean.class
+de\hsh\steam\jsf\backend\application\Streamingprovider.class
+de\hsh\steam\jsf\backend\application\Score.class
+de\hsh\steam\jsf\beans\CardDetail.class
+de\hsh\steam\jsf\beans\UserHandler.class
+de\hsh\steam\jsf\backend\application\SeriesRepository.class
+de\hsh\steam\jsf\backend\application\Genre.class

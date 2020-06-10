@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Steam™ - Search </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<header style="position: sticky; top: 0; left: 0; z-index: 301;">
+    <input type="checkbox" id="toggler">
+
+      <label for="toggler">
+        <span class="hamburger-container">
+          <span class="dash"></span>
+          <span class="dash"></span>
+        </span>
+        <span class="menu_text">
+          <span id="greeting_text">Username, Gute Nacht! </span>
+          <span>Steam™</span>
+        </span>
+      </label>
+
+    <div class="nav-items">
+        <ul>
+            <li><a href="javascript:void(0);" onclick="window.location.href='index.html?username='+getParams('username')">MySteam</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </div>
+</header>
+
+<span class="label_text">
+    &lt; Search &gt;
+</span>
+<span class="tool_bar">
+        <a href="javascript:void(0);" onclick="window.location.href='index.html?username='+getParams('username')"><i class="fas fa-chevron-left"></i></a>
+        <i class="fas fa-moon" id="night_mode_button"></i>
+    </span>
+
+<form class="searchform" onsubmit="return false">
+    <input type="text" name="query" id="query" placeholder="Query Here">
+    <button type="submit" id="submit" onclick="search()">Search</button>
+</form>
+
+<div id="page_container" class="page-container" style="top: 10rem;">
+</div>
+
+<!--<footer>Steam™ | SS20 Gruppe IX | Web-Technologie Pflichtaufgabe-1 </footer>-->
+
+
+
+
+
+<!--<link href="search_light.css" rel="stylesheet">-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+    var now = new Date();
+    var $body = $(document).find("body");
+    var $page_container = $(document).find("div.page-container");
+    $page_container.bind("DOMNodeInserted DOMNodeRemoved", function (e) {
+        var $footer = $body.find("footer");
+        $footer.attr("style", "top:" + ($(document).height() -80) + "px;");
+    });
+
+    $(window).resize(function () {
+        var $footer = $body.find("footer");
+        $footer.attr("style", "top:" + ($(document).height() -80) + "px;");
+    });
+
+    function search() {
+        $page_container.empty();
+        var query = $('#query').val();
+        // alert(query)
+        var cards = $.cookie('cards');
+        if(cards) {
+            cards = JSON.parse(cards);
+        }
+
+        // var $page_container = $(document).find("div.page-container");
+        for(var i in cards) {
+            // console.log(cards[i].title.toLowerCase())
+            // console.log(query.toLowerCase())
+            if(cards[i].title.toLowerCase().indexOf(query.toLowerCase()) != -1) {
+                addNewCard(cards[i].username,cards[i].title,cards[i].season,cards[i].genre,cards[i].platform,cards[i].score,cards[i].remark);
+            }
+        }
+        // console.log(cards);
+    }
+
+    function getParams(key) {
+        var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    };
+
+    $(document).ready(function () {
+        var $greeting_text = $(document).find("#greeting_text");
+        if (now.getHours() >= 18 && now.getHours() <= 21) {
+            $greeting_text.text(getParams("username") + ", Guten Abend!");
+        } else if (now.getHours() > 21 || now.getHours() <= 6) {
+            $greeting_text.text(getParams("username")  + ", Gute Nacht!!");
+        } else if (now.getHours() > 6 || now.getHours() < 18) {
+            $greeting_text.text(getParams("username")  + ", Guten Tag!");
+        }
+
+
+        if ($body.find("footer").length == 0) {
+
+            var $footer;
+            if ($(window).height() < $page_container.height()) {
+                $footer = $(
+                    "<footer style='top:" +
+                    ($page_container.height() + 82) +
+                    "px;'>Steam™ | SS20 Gruppe IX | Web-Technologie Pflichtaufgabe-1 </footer>"
+                );
+            } else {
+                $footer = $(
+                    "<footer style='top:" +
+                    ($(window).height() - 82) +
+                    "px;'>Steam™ | SS20 Gruppe IX | Web-Technologie Pflichtaufgabe-1 </footer>"
+                );
+            }
+            $body.append($footer);
+        }
+
+        if(localStorage.getItem("dark_mode") == "dark") {
+            removeCss("light.css");
+            removeCss("search_light.css");
+            loadCss("dark.css");
+            loadCss("search_dark.css");
+            $("#night_mode_button").attr("class", "fa fa-sun");
+        } else {
+            removeCss("dark.css");
+            removeCss("search_dark.css");
+            loadCss("light.css");
+            loadCss("search_light.css");
+            $("#night_mode_button").attr("class", "fa fa-moon");
+        }
+
+
+
+
+    });
+    // alert(localStorage.getItem("dark_mode"))
+    $(document).on("click","a.detail_icon" ,function () {
+  // alert()
+        var $card_Container = $(this).parent().parent().parent();
+        var $span_titel = $card_Container.find(".span_titel").text();
+        var $span_season = $card_Container.find(".span_season").text();
+        var $span_genre = $card_Container.find(".span_genre").text();
+        var $span_platform = $card_Container.find(".span_platform").text();
+        var $span_rating = $card_Container.find(".text_rating").find("span").text();
+        var $span_remark = $card_Container.find(".span_remark").text();
+        var $span_username = $card_Container.find(".span_username").text();
+        var queryHtml = "detail.html?id="+$card_Container.attr("data-series-id")+"&season="+$span_season+"&titel="+$span_titel+"&genre="+$span_genre+"&platform="+$span_platform+"&rating="+$span_rating+"&remark="+$span_remark+"&username="+$span_username;
+        $(this).attr("href",queryHtml);
+      });
+
+    $("span.tool_bar #night_mode_button").click(function () {
+        // alert(localStorage.getItem("night"));
+        if (localStorage.getItem("dark_mode") === "dark") {
+            removeCss("dark.css");
+            removeCss("search_dark.css");
+            loadCss("light.css");
+            loadCss("search_light.css");
+            $("#night_mode_button").attr("class", "fa fa-moon");
+            localStorage.setItem("dark_mode", "light");
+        } else {
+            removeCss("light.css");
+            removeCss("search_light.css");
+            loadCss("dark.css");
+            loadCss("search_dark.css");
+            $("#night_mode_button").attr("class", "fa fa-sun");
+            localStorage.setItem("dark_mode", "dark");
+        }
+    });
+
+    function removeCss(href) {
+
+        var links = document.getElementsByTagName("link");
+        for (var i = 0; i < links.length; i++) {
+            var _href = links[i].href;
+            if (links[i] && links[i].href && links[i].href.indexOf(href) != -1) {
+                links[i].parentNode.removeChild(links[i]);
+            }
+        }
+    }
+
+    function loadCss(href) {
+        var addSign = true;
+        var links = document.getElementsByTagName("link");
+        for (var i = 0; i < links.length; i++) {
+            if (links[i] && links[i].href && links[i].href.indexOf(href) != -1) {
+                addSign = false;
+            }
+        }
+        if (addSign) {
+            var $link = document.createElement("link");
+            $link.setAttribute("rel", "stylesheet");
+
+            $link.setAttribute("href", href);
+            $link.setAttribute("type", "text/css");
+            document.getElementsByTagName("head").item(0).appendChild($link);
+        }
+    }
+
+    function addNewCard(username,titel,season,genre,platform,rating,remark) {
+        var $page_Container = $(document).find("div.page-container");
+        var $card_Container = $("<div class='card-container' data-series-id=''>");
+        var $cover = $("<div class='cover'></div>");
+        var $back = $("<div class='back'></div>");
+        var $poster = $("<img src='https://dummyimage.com/300x400/F8F8F8/727878.jpg&text=No+image+Available' class='film_pic'/>");
+        var $titel = $("<span class='film_name'>"+titel+"</span>");
+        var $back_info = $("<div class='back-info'></div>");
+
+        var $text_titel = $("<label class='text_titel'>Titel: </label>");
+        var $text_season = $("<label class='text_season'>Season: </label>");
+        var $text_genre = $("<label class='text_genre'>Genre: </label>");
+        var $text_platform = $("<label class='text_platform'>Platform: </label>");
+        var $text_rating = $("<label class='text_rating'>Rating: </label>");
+        var $text_remark = $("<label class='text_remark'>Remark: </label>");
+        var $text_username = $("<label class='text_username'>EditBy: </label>");
+        $text_username.css("font-size","0.8rem");
+
+        var $span_titel = $("<span class='span_titel'>"+titel+"</span>");
+        var $span_season = $("<span class='span_season'>"+season+"</span>");
+        var $span_genre = $("<span class='span_genre'>"+genre+"</span>");
+        var $span_platform = $("<span class='span_platform'>"+platform+"</span>");
+        var $span_rating = $("<span class='span_rating_bad'>"+rating+"</span>");
+        var $span_remark = $("<span class='span_remark'>"+remark+"</span>");
+        var $span_username = $("<span class='span_username'>"+username+"</span>");
+
+        var $icon_top = $("<div class='icon-top'>");
+
+        $icon_top.append("<a class=\"poster_icon\"><i class=\"far fa-images\"></i></a>&nbsp;&nbsp;");
+        $icon_top.append("<a class=\"detail_icon\"><i class=\"fas fa-info\"></i></a>&nbsp;&nbsp;");
+
+        var $icon_bottom = $("<div class='icon-bottom' style='display:none;'>");
+        $icon_bottom.append("<i id=\"save_icon\" class=\"fas fa-save\"></i>");
+
+        $cover.append($poster);
+        $cover.append($titel);
+
+        $back_info.append($text_titel.append($span_titel));
+        $back_info.append($text_season.append($span_season));
+        $back_info.append($text_genre.append($span_genre));
+        if(platform.indexOf('Netflix') != -1) {
+          $span_platform.attr("style","color:red;");
+          $span_platform.text("Netflix");
+        } else if (platform.indexOf('AmazonPrime') != -1) {
+          $span_platform.attr("style","color:#232f3e;");
+          $span_platform.text("AmazonPrime");
+        } else {
+          $span_platform.attr("style","color:#1e90ff;");
+          $span_platform.text("Skye");
+        }
+
+        $back_info.append($text_platform.append($span_platform));
+        if(rating.indexOf("v") != -1) {
+          $span_rating.attr("class","span_rating_veryGood")
+          $span_rating.html("Very Good <i class=\"fas fa-star\"></i><i class=\"fas fa-star\"></i>");
+        } else if(rating.indexOf("ad") != -1) {
+          $span_rating.attr("class","span_rating_bad");
+          $span_rating.html("Bad <i class=\"fas fa-star-half\"></i>");
+        } else if(rating.indexOf("ediocre") != -1) {
+          $span_rating.attr("class","span_rating_mediocre");
+          $span_rating.html("Mediocre <i class=\"fas fa-star\"></i>");
+        } else {
+          $span_rating.attr("class","span_rating_good");
+          $span_rating.html("Good  <i class=\"fas fa-star\"></i><i class=\"fas fa-star-half\"></i>");
+        }
+        $back_info.append($text_rating.append($span_rating));
+        $back_info.append($text_remark.append($span_remark));
+        $back_info.append($text_username.append($span_username));
+
+        $back.append($back_info);
+        $back.append($icon_top);
+        $back.append($icon_bottom);
+
+        $card_Container.append($cover);
+        $card_Container.append($back);
+        getPosterOfSerie(titel, season, $poster,$card_Container);
+        $page_Container.append($card_Container);
+      }
+
+    function getPosterOfSerie(name, season, img, card) {
+        var serie_id;
+        var poster_path;
+        $.ajax({
+            url: "https://api.themoviedb.org/3/search/tv",
+            data: { api_key: "4e530284712767cef8547ff7f02bc6ad", query: name },
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                if(data.total_results == 0) {
+                    serie_id = -1;
+                    card.attr("data-series-id",serie_id);
+                    
+                } else {
+                    serie_id = data.results[0].id;
+                    card.attr("data-series-id",serie_id);
+                    poster_path = "http://image.tmdb.org/t/p/w400" + data.results[0].poster_path;
+                    card.find(".poster_icon").attr("href",poster_path);
+                    img.attr("src", poster_path);
+                    $.ajax({
+                        url:
+                            "https://api.themoviedb.org/3/tv/" + serie_id + "/season/" + season,
+                        data: { api_key: "4e530284712767cef8547ff7f02bc6ad" },
+                        type: "GET",
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.poster_path != null) {
+                                // console.log(data);
+                                poster_path = "http://image.tmdb.org/t/p/w400" + data.poster_path;
+                                card.find(".poster_icon").attr("href",poster_path);
+                                img.attr("src", poster_path);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+
+</html>
