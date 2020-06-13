@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Steam™ - Dashboard </title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body id="_body">
+    <header style="position: sticky; top: 0; left: 0; z-index: 301;">
+      <input type="checkbox" id="toggler">
+
+      <label for="toggler">
+        <span class="hamburger-container">
+          <span class="dash"></span>
+          <span class="dash"></span>
+        </span>
+        <span class="menu_text">
+          <span id="greeting_text"> {{greeting_text}} </span>
+          <span>Steam™</span>
+        </span>
+      </label>
+
+      <div class="nav-items">
+        <ul>
+          <li><a href="#">MySteam</a></li>
+          <li><a [routerLink]="['/search']" [queryParams]="{username: username}">Search</a></li>
+          <li><a [routerLink]="['/']">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <span class="label_text">
+          &lt; Serienliste &gt;
+        </span>
+        <span class="tool_bar">
+            <a href="javascript:void(0)" onclick="location.reload();"><i class="fas fa-sync-alt"></i></a>
+            <a [routerLink]="['/search']" [queryParams]="{username: username}"><i class="fas fa-search" id="search_button"></i></a>
+            <a (click)="switchToAddMode()"><i class="fas fa-plus" id="new_card_button"></i></a>
+        </span>
+    </div>
+
+    <div id="page_container" class="page-container">
+        <!-- <div class="card-container" data-series-id="1399"><div class="cover"><img src="http://image.tmdb.org/t/p/w400/zwaj4egrhnXOBIit1tyb4Sbt3KP.jpg" class="film_pic"><span class="film_name">Game Of Throne </span></div><div class="back"><div class="back-info"><label class="text_titel">Titel: <span class="span_titel">Game Of Throne </span></label><label class="text_season">Season: <span class="span_season">1</span></label><label class="text_genre">Genre: <span class="span_genre">Drama</span></label><label class="text_platform">Platform: <span class="span_platform">Netflix</span></label><label class="text_rating">Rating: <span class="span_rating_mediocre">Mediocre <i class="fas fa-star"></i></span></label><label class="text_remark">Remark: <span class="span_remark">Comment hier</span></label><label class="text_username" style="font-size: 0.8rem;">EditBy: <span class="span_username">shirosya</span></label></div><div class="icon-top"><a class="poster_icon"><i class="far fa-images"></i></a>&nbsp;&nbsp;<a class="detail_icon"><i class="fas fa-info"></i></a>&nbsp;&nbsp;<a class="edit_icon"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;<a class="delete_icon"><i class="fas fa-times"></i></a></div><div class="icon-bottom" style="display:none;"><i id="save_icon" class="fas fa-save"></i></div></div></div> -->
+        <div class="card-container" *ngFor="let card of cardList" [attr.data-series-id]="card.seriesId">
+          <div class="cover">
+              <img [src]="card.posterLink" class="film_pic">
+              <span class="film_name"> {{card.title}} </span>
+          </div>
+          <div class="back" *ngIf="!card.editMode; else edit_content">
+            <div class="back-info">
+              <label class="text_titel">Titel: <span class="span_titel"> {{card.title}} </span></label>
+              <label class="text_season">Season: <span class="span_season"> {{card.season}} </span></label>
+              <label class="text_genre">Genre: <span class="span_genre"> {{card.genre}} </span></label>
+              <label class="text_platform">Platform: <span [ngClass]="card.platform"> {{card.platform}} </span></label>
+              <label class="text_rating">Rating: 
+                <span [ngClass]="card.rating"> {{card.rating}} 
+                  <ng-template [ngIf]="card.rating == 'mediocre'"><i class="fas fa-star"></i></ng-template>
+                  <ng-template [ngIf]="card.rating == 'good'"><i class="fas fa-star"></i><i class="fas fa-star-half"></i></ng-template>
+                  <ng-template [ngIf]="card.rating == 'very_good'"><i class="fas fa-star"></i><i class="fas fa-star"></i></ng-template>
+                  <ng-template [ngIf]="card.rating == 'bad'"><i class="fas fa-star-half"></i></ng-template>
+                </span>
+              </label>
+              <label class="text_remark">Remark: <span class="span_remark"> {{card.remark}} </span></label>
+              <label class="text_username" style="font-size: 1.2rem;">EditBy: <span class="span_username">{{card.username}}</span></label>
+            </div>
+            <div class="icon-top">
+              <a class="poster_icon" [href]="card.posterLink"><i class="far fa-images"></i></a>&nbsp;
+              <a class="edit_icon" (click)="switchToEditMode(card)"><i class="fas fa-edit"></i></a>
+            </div>
+            <div class="icon-bottom" style="display:none;">
+              <i id="save_icon" class="fas fa-save"></i>
+            </div>
+          </div>
+          <ng-template #edit_content>
+            <div class="back">
+            <div class="back-info">
+              <label class="text_titel">Titel: <input [(ngModel)] = "card.title"/> </label>
+              <label class="text_season">Season: <input [(ngModel)] = "card.season"/> </label>
+              <label class="text_genre">Genre: 
+                <select [(ngModel)] = "card.genre">
+                  <option value="Action">Action</option>
+                  <option value="Comedy">Comedy</option>
+                  <option value="Documentary">Documentary</option>
+                  <option value="Drama">Drama</option>
+                  <option value="ScienceFiction">ScienceFiction</option>
+                  <option value="Thriller">Thriller</option>
+                </select>
+              </label>
+              <label class="text_platform">Platform: 
+                <select [(ngModel)] = "card.platform">
+                  <option value="Netflix" style="color:red;">Netflix</option>
+                  <option value="AmazonPrime" style="color:#232f3e;">AmazonPrime</option>
+                  <option value="Skye" style="color:#1E90FF;">Skye</option>
+                </select>
+              </label>
+              <label class="text_rating">Rating: 
+                <select [(ngModel)] = "card.rating">
+                  <option value="very_good" style="color:darkgreen;">very_good</option>
+                  <option value="good" style="color:forestgreen;">good</option>
+                  <option value="mediocre" style="color:coral;">mediocre</option>
+                  <option value="bad" style="color:firebrick;">bad</option>
+                </select>
+              </label>
+              <label class="text_remark">Remark: <input [(ngModel)] = "card.remark"/> </label>
+              <label class="text_username" style="font-size: 1.2rem;">EditBy: <span class="span_username">{{card.username}}</span></label>
+            </div>
+            <div class="icon-top">
+
+              <a class="edit_icon"><i class="fas fa-edit"></i></a>
+
+            </div>
+            <div class="icon-bottom" style="display:block;">
+              <a (click)="switchToViewMode(card)"><i id="save_icon" class="fas fa-save"></i></a>
+            </div>
+          </div>
+          </ng-template>
+      </div>
+      <div class='card-container'>
+        <div class='create-card-cover' (click)="switchToAddMode()" *ngIf="!inAddMode">
+          <i class='fas fa-plus'></i>
+        </div>
+        <div class='create-card-back' style="transform: rotatey(0deg);" *ngIf="inAddMode">
+          <div class="back-info">
+            <label class="text_titel">Titel: <input class="input_titel" [(ngModel)] = "toBeAddCard.title"></label>
+            <label class="text_season">Season: <input class="input_season" [(ngModel)] = "toBeAddCard.season"></label>
+            <label class="text_genre">Genre: 
+              <select [(ngModel)] = "toBeAddCard.genre">
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Documentary">Documentary</option>
+                <option value="Drama">Drama</option>
+                <option value="ScienceFiction">ScienceFiction</option>
+                <option value="Thriller">Thriller</option>
+              </select>
+            </label>
+            <label class="text_platform">Platform: 
+              <select [(ngModel)] = "toBeAddCard.platform">
+                <option value="Netflix" style="color:red;">Netflix</option>
+                <option value="AmazonPrime" style="color:#232f3e;">AmazonPrime</option>
+                <option value="Skye" style="color:#1E90FF;">Skye</option>
+              </select>
+            </label>
+            <label class="text_rating">Rating: 
+              <select [(ngModel)] = "toBeAddCard.rating">
+                <option value="very_good" style="color:darkgreen;">very_good</option>
+                <option value="good" style="color:forestgreen;">good</option>
+                <option value="mediocre" style="color:coral;">mediocre</option>
+                <option value="bad" style="color:firebrick;">bad</option>
+              </select>
+            </label>
+            <label class="text_remark">Remark: <input class="input_remark" [(ngModel)] = "toBeAddCard.remark"></label>
+            <label class="text_username" style="font-size: 1.2rem;">EditBy: <span class="span_username">{{username}}</span></label>
+    </div>
+    <div class="icon-bottom" (click)="saveCard(toBeAddCard)"><i id="save_icon" class="fas fa-save"></i></div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
