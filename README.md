@@ -1,5 +1,5 @@
-# DEADLINE 2020 - 06 - 20
 ## Steam - Steam™ – <u>St</u>r<u>ea</u>ming Series <u>M</u>emory
+[Mit Testkonto einloggen](http://projekt.alias.zone/steam-0.1/index.html?username=test)
 > 这是 Hochschule Hannover SS2020 Web-Technologie 的项目。
 
 > This is a project of Hochschule Hannover SS2020 Web-Technologie.
