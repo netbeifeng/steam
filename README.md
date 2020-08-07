@@ -16,6 +16,10 @@ PA 2.2
 PA 2.3
 
 ## Main-Board
-
+![](https://github.com/netbeifeng/steam/blob/master/main_1.png)
+![](https://github.com/netbeifeng/steam/blob/master/main_2.png)
+![](https://github.com/netbeifeng/steam/blob/master/dark_1.png)
 
 ## Detail
+![](https://github.com/netbeifeng/steam/blob/master/detail_1.png)
+![](https://github.com/netbeifeng/steam/blob/master/detail_2.png)
