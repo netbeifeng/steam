@@ -3,17 +3,17 @@
 
 
   ## Team
-    - Chang Luo | MatrNr. 1511999
+    - M1
       - ReadMe.md erstellen
       - index.html
       - index.js
       - index.css
-    - Bozhen Zhu | MatrNr. 1512105
+    - M2
       - Alle Schnittstelle(RESTful API Interface) Backend
       - api.pdf erstellen
       - search.html
       - search_light.css und search_dark.css
-    - Zhaoxi Wang | MatrNr. 1512037
+    - M3
       - login.html
       - login.css
       - login.js
